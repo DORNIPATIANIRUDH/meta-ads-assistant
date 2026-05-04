@@ -7,73 +7,77 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--blue:#0866FF;--blue-dark:#0553cc;--bg:#f0f2f5;--surface:#fff;--border:#e4e6ea;--text:#050505;--text2:#65676b;--text3:#8a8d91;--ai-bubble:#e4e6ea;--green:#31a24c;--orange:#e67e00;--groq:#f55036;--anthropic:#d97757}
+:root{
+  --blue:#0866FF;--blue-dark:#0553cc;
+  --bg:#f0f2f5;--surface:#fff;--border:#e4e6ea;
+  --text:#050505;--text2:#65676b;--text3:#8a8d91;
+  --ai-bubble:#e4e6ea;--green:#31a24c;--orange:#e67e00;
+}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
 
-/* Gate */
+/* ── Banner ── */
+#env-banner{display:none;width:100%;max-width:460px;background:#fffbe6;border:1px solid #ffe066;border-radius:10px;padding:11px 16px;font-size:13px;color:#7a5c00;line-height:1.5;margin-bottom:14px}
+#env-banner strong{font-weight:600}
+
+/* ── Gate ── */
 #gate{width:100%;max-width:460px;background:var(--surface);border-radius:16px;border:1px solid var(--border);padding:36px 32px;box-shadow:0 2px 12px rgba(0,0,0,.08);display:flex;flex-direction:column;gap:22px}
 #gate-logo{width:48px;height:48px;border-radius:12px;background:var(--blue);display:flex;align-items:center;justify-content:center}
 #gate-logo svg{width:26px;height:26px;fill:white}
 #gate h1{font-size:20px;font-weight:600;color:var(--text)}
-#gate p{font-size:14px;color:var(--text2);line-height:1.6}
+#gate-desc{font-size:14px;color:var(--text2);line-height:1.6}
 
-/* Provider tabs */
-#provider-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:8px}
-#provider-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.ptab{
-  padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);
-  background:var(--bg);cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;
-  transition:all .15s;display:flex;flex-direction:column;gap:4px;
-}
-.ptab:hover{border-color:#aaa;background:#fff}
+#prov-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:8px}
+#prov-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ptab{padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;transition:all .15s;display:flex;flex-direction:column;gap:4px;position:relative}
+.ptab:hover:not(.disabled){border-color:#aaa;background:#fff}
 .ptab.active{border-color:var(--blue);background:#eef3ff}
+.ptab.disabled{opacity:.5;cursor:not-allowed}
 .ptab .pname{font-size:14px;font-weight:600;color:var(--text)}
 .ptab .psub{font-size:11px;color:var(--text3)}
 .ptab .pbadge{font-size:10px;padding:2px 7px;border-radius:10px;width:fit-content;margin-top:2px;font-weight:500}
 .ptab.p-anthropic.active .pname{color:#d97757}
 .ptab.p-groq.active .pname{color:#f55036}
+.badge-quality{background:#fff3e0;color:#e65100}
 .badge-free{background:#e6f4ea;color:#1e7e34}
-.badge-fast{background:#fff3e0;color:#e65100}
+.badge-preview{background:#fff0f0;color:#c00;font-size:10px;padding:2px 7px;border-radius:10px;width:fit-content;margin-top:2px;font-weight:500}
 
-/* Model selector */
-#model-wrap{display:flex;flex-direction:column;gap:8px}
-#model-label{font-size:12px;font-weight:500;color:var(--text2)}
-#model-sel{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;cursor:pointer;transition:border-color .15s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8d91' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+#model-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
+#model-sel{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8d91' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;transition:border-color .15s}
 #model-sel:focus{border-color:var(--blue);background-color:#fff}
 
-/* Key input */
-#key-wrap{display:flex;flex-direction:column;gap:8px}
-#key-label{font-size:12px;font-weight:500;color:var(--text2)}
+#key-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
 #key-row{display:flex;gap:8px}
 #apikey{flex:1;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
 #apikey:focus{border-color:var(--blue);background:#fff}
 #gate-btn{padding:10px 22px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s}
 #gate-btn:hover{background:var(--blue-dark)}
-#gate-err{font-size:13px;color:#e02020;display:none}
+#gate-err{font-size:13px;color:#c00;display:none;padding:8px 12px;background:#fff0f0;border-radius:8px;border:1px solid #ffd0d0}
 #gate-note{font-size:12px;color:var(--text3);line-height:1.55;padding:12px 14px;background:var(--bg);border-radius:8px}
 #gate-note a{color:var(--blue);text-decoration:none}
 #gate-note a:hover{text-decoration:underline}
 
-/* App */
+/* ── App ── */
 #app{display:none;width:100%;max-width:720px;background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;flex-direction:column;height:90vh;max-height:700px;box-shadow:0 2px 12px rgba(0,0,0,.08)}
 #hdr{padding:13px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
 #logo{width:38px;height:38px;border-radius:10px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 #logo svg{width:20px;height:20px;fill:white}
 #hdr-name{font-size:15px;font-weight:600;color:var(--text)}
-#hdr-status{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:5px;margin-top:2px}
+#hdr-sub{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap}
 #sdot{width:7px;height:7px;border-radius:50%;background:var(--green);transition:background .3s;flex-shrink:0}
 #sdot.busy{background:var(--orange)}
-#provider-pill{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;margin-left:6px}
-.pill-anthropic{background:#fef3ee;color:#d97757;border:1px solid #f5c9b3}
-.pill-groq{background:#fff0ee;color:#f55036;border:1px solid #ffc8c0}
-#key-chip{margin-left:auto;font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);color:var(--text2);background:var(--bg);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
+#prov-pill{font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500;border:1px solid}
+.pill-anthropic{background:#fef3ee;color:#c96030;border-color:#f5c9b3}
+.pill-groq{background:#fff0ee;color:#f55036;border-color:#ffc8c0}
+#key-chip{margin-left:auto;font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);color:var(--text2);background:var(--bg);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s;flex-shrink:0}
 #key-chip:hover{background:var(--border)}
+
 #modebar{display:flex;gap:8px;padding:10px 20px;border-bottom:1px solid var(--border);background:#fafafa;flex-shrink:0}
 .mbtn{font-size:13px;font-family:'DM Sans',sans-serif;padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-weight:500;transition:all .15s}
 .mbtn:hover:not(.on){background:var(--bg);color:var(--text)}
 .mbtn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+
 #msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
-.row{display:flex;gap:10px;align-items:flex-start}
+.row{display:flex;gap:10px;align-items:flex-start;max-width:100%}
 .row.me{flex-direction:row-reverse}
 .av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:2px}
 .row.ai .av{background:var(--blue);color:#fff}
@@ -85,6 +89,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;disp
 .d{width:7px;height:7px;border-radius:50%;background:var(--text3);animation:bob 1.1s infinite ease-in-out}
 .d:nth-child(2){animation-delay:.18s}.d:nth-child(3){animation-delay:.36s}
 @keyframes bob{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+
 #foot{padding:12px 20px 16px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0}
 #hint{font-size:11px;color:var(--text3);margin-bottom:8px;padding:0 2px;line-height:1.4}
 #inputrow{display:flex;gap:10px;align-items:flex-end}
@@ -94,60 +99,61 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;disp
 #sbtn:hover{background:var(--blue-dark)}
 #sbtn:disabled{opacity:.35;cursor:not-allowed}
 #sbtn svg{width:17px;height:17px;fill:white;pointer-events:none;transform:translateX(1px)}
-#toast{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1c1e21;color:#fff;padding:10px 20px;border-radius:22px;font-size:13px;font-family:'DM Sans',sans-serif;z-index:100;white-space:nowrap}
+
+#toast{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1c1e21;color:#fff;padding:10px 20px;border-radius:22px;font-size:13px;font-family:'DM Sans',sans-serif;z-index:100;max-width:500px;text-align:center;line-height:1.4}
 </style>
 </head>
 <body>
 
-<!-- Gate -->
+<div id="env-banner"></div>
+
 <div id="gate">
   <div id="gate-logo"><svg viewBox="0 0 24 24"><path d="M3.5 18.5l4-8 4 6 2.5-3.5 4.5 5.5H3.5zM21 6.5A2.5 2.5 0 1116 6.5 2.5 2.5 0 0121 6.5z"/></svg></div>
   <h1>Meta Ads AI Assistant</h1>
-  <p>Choose your AI provider, pick a model, and enter your API key to get started.</p>
+  <p id="gate-desc">Choose your AI provider, select a model, and enter your API key.</p>
 
   <div>
-    <div id="provider-label">Choose AI provider</div>
-    <div id="provider-tabs">
+    <div id="prov-label">AI provider</div>
+    <div id="prov-tabs">
       <button class="ptab p-anthropic active" data-p="anthropic">
         <span class="pname">Anthropic</span>
         <span class="psub">Claude models</span>
-        <span class="pbadge badge-fast">Best quality</span>
+        <span class="pbadge badge-quality">Best quality</span>
       </button>
       <button class="ptab p-groq" data-p="groq">
         <span class="pname">Groq</span>
-        <span class="psub">Llama &amp; Mixtral</span>
-        <span class="pbadge badge-free">Free tier available</span>
+        <span class="psub">Llama · Gemma</span>
+        <span class="pbadge badge-free">Free tier</span>
       </button>
     </div>
   </div>
 
-  <div id="model-wrap">
-    <div id="model-label">Select model</div>
+  <div>
+    <div id="model-label">Model</div>
     <select id="model-sel"></select>
   </div>
 
-  <div id="key-wrap">
+  <div>
     <div id="key-label">API key</div>
     <div id="key-row">
       <input id="apikey" type="password" placeholder="" autocomplete="off" spellcheck="false"/>
       <button id="gate-btn">Launch</button>
     </div>
-    <div id="gate-err"></div>
+    <div id="gate-err" style="margin-top:8px"></div>
   </div>
 
   <div id="gate-note"></div>
 </div>
 
-<!-- App -->
 <div id="app">
   <div id="hdr">
     <div id="logo"><svg viewBox="0 0 24 24"><path d="M3.5 18.5l4-8 4 6 2.5-3.5 4.5 5.5H3.5zM21 6.5A2.5 2.5 0 1116 6.5 2.5 2.5 0 0121 6.5z"/></svg></div>
-    <div style="flex:1">
+    <div style="flex:1;min-width:0">
       <div id="hdr-name">Meta Ads AI Assistant</div>
-      <div id="hdr-status">
+      <div id="hdr-sub">
         <span id="sdot"></span>
         <span id="stxt">Online · Leads &amp; Sales</span>
-        <span id="provider-pill"></span>
+        <span id="prov-pill"></span>
       </div>
     </div>
     <button id="key-chip">Change Provider</button>
@@ -171,36 +177,41 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;disp
 <script>
 (function(){
 
-/* ── Provider config ── */
+/* ── Environment detection ── */
+const isIframe = (function(){
+  try { return window.self !== window.top; } catch(e){ return true; }
+})();
+
+/* ── Provider config — FIXED model IDs ── */
 const PROVIDERS = {
   anthropic:{
     name:"Anthropic",
     placeholder:"sk-ant-api03-...",
     validate: k => k.startsWith("sk-ant-"),
-    errMsg:"Key must start with sk-ant-",
-    note:'Get a free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys',
+    errMsg:"Key must start with sk-ant-  —  get one at console.anthropic.com",
+    note:'Get a free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys. Works in both preview and GitHub Pages.',
     models:[
-      {id:"claude-sonnet-4-5",       label:"Claude Sonnet 4.5 — best quality"},
-      {id:"claude-haiku-4-5-20251001",label:"Claude Haiku 4.5 — faster & cheaper"}
+      {id:"claude-sonnet-4-6",        label:"Claude Sonnet 4.6 — best quality"},
+      {id:"claude-haiku-4-5-20251001", label:"Claude Haiku 4.5 — faster & cheaper"},
+      {id:"claude-opus-4-6",          label:"Claude Opus 4.6 — most powerful"}
     ]
   },
   groq:{
     name:"Groq",
     placeholder:"gsk_...",
     validate: k => k.startsWith("gsk_"),
-    errMsg:"Groq keys start with gsk_",
-    note:'Get a free key at <a href="https://console.groq.com" target="_blank">console.groq.com</a> → API Keys — free tier included',
+    errMsg:"Groq keys start with gsk_  —  get one at console.groq.com",
+    note:'Free key at <a href="https://console.groq.com" target="_blank">console.groq.com</a> → API Keys. <strong>Groq only works on GitHub Pages, not in this preview.</strong>',
     models:[
-      {id:"llama-3.3-70b-versatile",  label:"Llama 3.3 70B — best quality (free)"},
-      {id:"llama-3.1-8b-instant",     label:"Llama 3.1 8B — fastest (free)"},
-      {id:"mixtral-8x7b-32768",       label:"Mixtral 8x7B — balanced (free)"},
-      {id:"gemma2-9b-it",             label:"Gemma 2 9B — Google model (free)"}
+      {id:"llama-3.3-70b-versatile", label:"Llama 3.3 70B — best quality (free)"},
+      {id:"llama-3.1-8b-instant",    label:"Llama 3.1 8B — fastest (free)"},
+      {id:"gemma2-9b-it",            label:"Gemma 2 9B — Google model (free)"}
     ]
   }
 };
 
 /* ── Mode prompts ── */
-const MODES={
+const MODES = {
   consultant:{
     hint:"Strategy — describe your product, target customer and whether you want leads, sales, or both",
     welcome:"Hi! I am your Meta Ads Strategy Consultant.\n\nTell me about your business — what you sell, who your customers are, and whether you want leads, direct sales, or both. I will build you a complete Meta Ads strategy tailored to your exact goal.",
@@ -258,7 +269,7 @@ Benchmarks:
 - Website CVR: good 1-3%, poor <0.5%
 - ROAS: good 3-5x, poor <2x
 
-Lead vs Sales Gap: diagnose too few leads / poor quality / leads not converting. Identify funnel drop-off.
+Lead vs Sales Gap: diagnose too few leads / poor quality / leads not converting to sales. Identify funnel drop-off.
 
 Top 5 Fixes (by impact): action, metric fixed, estimated improvement.
 
@@ -270,157 +281,255 @@ Direct and data-driven. Plain text, short headers. No markdown.`
 
 /* ── State ── */
 let mode="consultant", history=[], busy=false;
-let apiKey="", provider="anthropic", model="claude-sonnet-4-5";
+let apiKey="", provider="anthropic", model="";
 
 /* ── Elements ── */
-const gateEl=document.getElementById("gate"), appEl=document.getElementById("app");
-const apikeyEl=document.getElementById("apikey"), gateBtnEl=document.getElementById("gate-btn");
-const gateErrEl=document.getElementById("gate-err"), gateNoteEl=document.getElementById("gate-note");
-const modelSelEl=document.getElementById("model-sel"), keyLabelEl=document.getElementById("key-label");
-const msgsEl=document.getElementById("msgs"), tinEl=document.getElementById("tin"), sbtnEl=document.getElementById("sbtn");
-const hintEl=document.getElementById("hint"), sdotEl=document.getElementById("sdot"), stxtEl=document.getElementById("stxt");
-const toastEl=document.getElementById("toast"), keyChipEl=document.getElementById("key-chip");
-const pillEl=document.getElementById("provider-pill");
+const bannerEl  = document.getElementById("env-banner");
+const gateEl    = document.getElementById("gate");
+const appEl     = document.getElementById("app");
+const apikeyEl  = document.getElementById("apikey");
+const gateBtnEl = document.getElementById("gate-btn");
+const gateErrEl = document.getElementById("gate-err");
+const gateNoteEl= document.getElementById("gate-note");
+const modelSelEl= document.getElementById("model-sel");
+const keyLabelEl= document.getElementById("key-label");
+const msgsEl    = document.getElementById("msgs");
+const tinEl     = document.getElementById("tin");
+const sbtnEl    = document.getElementById("sbtn");
+const hintEl    = document.getElementById("hint");
+const sdotEl    = document.getElementById("sdot");
+const stxtEl    = document.getElementById("stxt");
+const toastEl   = document.getElementById("toast");
+const keyChipEl = document.getElementById("key-chip");
+const pillEl    = document.getElementById("prov-pill");
 
-/* ── Provider tab logic ── */
+/* ── Show environment banner if in iframe ── */
+if(isIframe){
+  bannerEl.style.display="block";
+  bannerEl.innerHTML='<strong>Preview mode:</strong> Only <strong>Anthropic</strong> works here. To use Groq, deploy to GitHub Pages first. <a href="https://console.anthropic.com" target="_blank" style="color:#7a5c00;font-weight:600">Get Anthropic key →</a>';
+}
+
+/* ── Provider switching ── */
 function setProvider(p){
-  provider=p;
-  document.querySelectorAll(".ptab").forEach(t=>t.classList.toggle("active",t.dataset.p===p));
-  const cfg=PROVIDERS[p];
-  apikeyEl.placeholder=cfg.placeholder;
-  keyLabelEl.textContent=p==="anthropic"?"Anthropic API key":"Groq API key";
-  gateNoteEl.innerHTML=cfg.note;
-  gateErrEl.style.display="none";
-  // Populate model dropdown
-  modelSelEl.innerHTML="";
-  cfg.models.forEach(m=>{
-    const o=document.createElement("option");
-    o.value=m.id; o.textContent=m.label;
+  provider = p;
+  const groqTab = document.querySelector(".ptab.p-groq");
+  document.querySelectorAll(".ptab").forEach(t => t.classList.remove("active"));
+
+  if(isIframe && p === "groq"){
+    // In iframe — block Groq, force back to Anthropic
+    provider = "anthropic";
+    gateErrEl.textContent = "Groq is not available in preview mode. It works on GitHub Pages. Use Anthropic here.";
+    gateErrEl.style.display = "block";
+    document.querySelector(".ptab.p-anthropic").classList.add("active");
+    setProvider("anthropic");
+    return;
+  }
+
+  document.querySelector('.ptab[data-p="'+p+'"]').classList.add("active");
+
+  // Mark Groq as disabled in iframe
+  if(isIframe && groqTab){
+    groqTab.classList.add("disabled");
+    const existBadge = groqTab.querySelector(".badge-preview");
+    if(!existBadge){
+      const b=document.createElement("span");
+      b.className="badge-preview";
+      b.textContent="GitHub Pages only";
+      groqTab.appendChild(b);
+    }
+  }
+
+  const cfg = PROVIDERS[p];
+  apikeyEl.placeholder = cfg.placeholder;
+  keyLabelEl.textContent = p==="anthropic" ? "Anthropic API key" : "Groq API key";
+  gateNoteEl.innerHTML = cfg.note;
+  gateErrEl.style.display = "none";
+
+  modelSelEl.innerHTML = "";
+  cfg.models.forEach(m => {
+    const o = document.createElement("option");
+    o.value = m.id;
+    o.textContent = m.label;
     modelSelEl.appendChild(o);
   });
-  model=cfg.models[0].id;
+  model = cfg.models[0].id;
 }
-document.querySelectorAll(".ptab").forEach(t=>{
-  t.addEventListener("click",()=>setProvider(t.dataset.p));
+
+document.querySelectorAll(".ptab").forEach(t => {
+  t.addEventListener("click", () => setProvider(t.dataset.p));
 });
-modelSelEl.addEventListener("change",()=>{ model=modelSelEl.value; });
+modelSelEl.addEventListener("change", () => { model = modelSelEl.value; });
 
 /* ── Launch ── */
 function launch(){
-  const k=apikeyEl.value.trim();
-  const cfg=PROVIDERS[provider];
+  const k = apikeyEl.value.trim();
+  const cfg = PROVIDERS[provider];
   if(!cfg.validate(k)){
-    gateErrEl.textContent=cfg.errMsg;
-    gateErrEl.style.display="block";
+    gateErrEl.textContent = cfg.errMsg;
+    gateErrEl.style.display = "block";
     return;
   }
-  apiKey=k; model=modelSelEl.value;
-  gateErrEl.style.display="none";
-  gateEl.style.display="none";
-  appEl.style.display="flex";
-  pillEl.textContent=cfg.name+" · "+modelSelEl.options[modelSelEl.selectedIndex].text.split("—")[0].trim();
-  pillEl.className="provider-pill pill-"+provider;
+  apiKey = k;
+  model  = modelSelEl.value;
+  gateErrEl.style.display = "none";
+  bannerEl.style.display = "none";
+  gateEl.style.display   = "none";
+  appEl.style.display    = "flex";
+
+  const modelLabel = modelSelEl.options[modelSelEl.selectedIndex].text.split("—")[0].trim();
+  pillEl.textContent  = PROVIDERS[provider].name + " · " + modelLabel;
+  pillEl.className    = "prov-pill pill-" + provider;
   setMode("consultant");
   tinEl.focus();
 }
 function resetKey(){
   apiKey=""; history=[];
-  appEl.style.display="none";
-  gateEl.style.display="flex";
-  apikeyEl.value="";
+  appEl.style.display  = "none";
+  gateEl.style.display = "flex";
+  if(isIframe) bannerEl.style.display = "block";
+  apikeyEl.value = "";
 }
-gateBtnEl.addEventListener("click",launch);
-apikeyEl.addEventListener("keydown",e=>{ if(e.key==="Enter") launch(); });
-keyChipEl.addEventListener("click",resetKey);
 
-/* ── Toast ── */
+gateBtnEl.addEventListener("click", launch);
+apikeyEl.addEventListener("keydown", e => { if(e.key==="Enter") launch(); });
+keyChipEl.addEventListener("click", resetKey);
+
+/* ── Helpers ── */
 let tt;
-function showToast(m){ clearTimeout(tt); toastEl.textContent=m; toastEl.style.display="block"; tt=setTimeout(()=>{ toastEl.style.display="none"; },4000); }
-
-/* ── Status ── */
-function setStatus(online){
-  sdotEl.className=online?"":"busy";
-  stxtEl.textContent=online?"Online · Leads & Sales":"Typing...";
+function showToast(msg, duration=5000){
+  clearTimeout(tt);
+  toastEl.textContent = msg;
+  toastEl.style.display = "block";
+  tt = setTimeout(() => { toastEl.style.display="none"; }, duration);
 }
 
-/* ── Messages ── */
-function addMsg(role,text){
-  const row=document.createElement("div"); row.className="row "+role;
-  const av=document.createElement("div"); av.className="av"; av.textContent=role==="ai"?"AI":"Me";
-  const bbl=document.createElement("div"); bbl.className="bbl"; bbl.textContent=text;
+function setStatus(online){
+  sdotEl.className = online ? "" : "busy";
+  stxtEl.textContent = online ? "Online · Leads & Sales" : "Typing...";
+}
+
+function addMsg(role, text){
+  const row = document.createElement("div"); row.className = "row " + role;
+  const av  = document.createElement("div"); av.className  = "av"; av.textContent = role==="ai" ? "AI" : "Me";
+  const bbl = document.createElement("div"); bbl.className = "bbl"; bbl.textContent = text;
   row.appendChild(av); row.appendChild(bbl);
-  msgsEl.appendChild(row); msgsEl.scrollTop=msgsEl.scrollHeight;
+  msgsEl.appendChild(row); msgsEl.scrollTop = msgsEl.scrollHeight;
 }
 function addTyping(){
-  const row=document.createElement("div"); row.className="row ai"; row.id="trow";
-  const av=document.createElement("div"); av.className="av"; av.textContent="AI";
-  const dots=document.createElement("div"); dots.className="dots";
-  dots.innerHTML='<div class="d"></div><div class="d"></div><div class="d"></div>';
+  const row  = document.createElement("div"); row.className = "row ai"; row.id = "trow";
+  const av   = document.createElement("div"); av.className  = "av"; av.textContent = "AI";
+  const dots = document.createElement("div"); dots.className = "dots";
+  dots.innerHTML = '<div class="d"></div><div class="d"></div><div class="d"></div>';
   row.appendChild(av); row.appendChild(dots);
-  msgsEl.appendChild(row); msgsEl.scrollTop=msgsEl.scrollHeight;
+  msgsEl.appendChild(row); msgsEl.scrollTop = msgsEl.scrollHeight;
 }
 function removeTyping(){ const el=document.getElementById("trow"); if(el) el.remove(); }
 
 function setMode(m){
   mode=m; history=[]; msgsEl.innerHTML="";
-  document.querySelectorAll(".mbtn").forEach(b=>b.classList.remove("on"));
-  const a=document.querySelector('.mbtn[data-m="'+m+'"]'); if(a) a.classList.add("on");
-  hintEl.textContent=MODES[m].hint;
-  addMsg("ai",MODES[m].welcome);
+  document.querySelectorAll(".mbtn").forEach(b => b.classList.remove("on"));
+  const a = document.querySelector('.mbtn[data-m="'+m+'"]'); if(a) a.classList.add("on");
+  hintEl.textContent = MODES[m].hint;
+  addMsg("ai", MODES[m].welcome);
 }
 
-/* ── API call (handles both providers) ── */
+/* ── Unified API call (Anthropic + Groq) ── */
 async function callAPI(msgs){
-  if(provider==="anthropic"){
-    const res=await fetch("https://api.anthropic.com/v1/messages",{
+  if(provider === "anthropic"){
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
       method:"POST",
-      headers:{"Content-Type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
-      body:JSON.stringify({model,max_tokens:1024,system:MODES[mode].system,messages:msgs})
+      headers:{
+        "Content-Type":"application/json",
+        "x-api-key": apiKey,
+        "anthropic-version":"2023-06-01",
+        "anthropic-dangerous-direct-browser-access":"true"
+      },
+      body: JSON.stringify({
+        model, max_tokens:1024,
+        system: MODES[mode].system,
+        messages: msgs
+      })
     });
-    if(!res.ok){ const e=await res.json().catch(()=>({})); throw new Error(e?.error?.message||"Error "+res.status); }
-    const data=await res.json();
-    return data?.content?.find(b=>b.type==="text")?.text;
+    if(!res.ok){
+      const err = await res.json().catch(()=>({}));
+      const msg = err?.error?.message || ("HTTP " + res.status);
+      if(res.status===401) throw new Error("Invalid API key. Check your Anthropic key at console.anthropic.com");
+      if(res.status===429) throw new Error("Rate limit hit. Wait a moment and try again.");
+      throw new Error(msg);
+    }
+    const data  = await res.json();
+    const reply = data?.content?.find(b => b.type==="text")?.text;
+    if(!reply) throw new Error("Anthropic returned an empty response.");
+    return reply;
+
   } else {
-    // Groq uses OpenAI-compatible format
-    const groqMsgs=[{role:"system",content:MODES[mode].system},...msgs];
-    const res=await fetch("https://api.groq.com/openai/v1/chat/completions",{
+    /* Groq — OpenAI-compatible, stream:false explicitly set (Bug #6 fix) */
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method:"POST",
-      headers:{"Content-Type":"application/json","Authorization":"Bearer "+apiKey},
-      body:JSON.stringify({model,max_tokens:1024,messages:groqMsgs})
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer " + apiKey
+      },
+      body: JSON.stringify({
+        model, max_tokens:1024, stream:false,
+        messages:[
+          { role:"system", content: MODES[mode].system },
+          ...msgs
+        ]
+      })
     });
-    if(!res.ok){ const e=await res.json().catch(()=>({})); throw new Error(e?.error?.message||"Error "+res.status); }
-    const data=await res.json();
-    return data?.choices?.[0]?.message?.content;
+    if(!res.ok){
+      const err = await res.json().catch(()=>({}));
+      const msg = err?.error?.message || ("HTTP " + res.status);
+      if(res.status===401) throw new Error("Invalid Groq API key. Check at console.groq.com");
+      if(res.status===404) throw new Error("Model not found. Please select a different model.");
+      if(res.status===429) throw new Error("Rate limit hit. Wait a moment and try again.");
+      throw new Error(msg);
+    }
+    const data  = await res.json();
+    const reply = data?.choices?.[0]?.message?.content;
+    if(!reply) throw new Error("Groq returned an empty response.");
+    return reply;
   }
 }
 
 /* ── Send ── */
 async function send(){
-  const text=tinEl.value.trim(); if(!text||busy) return;
-  busy=true; sbtnEl.disabled=true; tinEl.value=""; tinEl.style.height="44px";
-  addMsg("me",text); history.push({role:"user",content:text});
+  const text = tinEl.value.trim(); if(!text || busy) return;
+  busy=true; sbtnEl.disabled=true;
+  tinEl.value=""; tinEl.style.height="44px";
+  addMsg("me", text);
+  history.push({role:"user", content:text});
   addTyping(); setStatus(false);
   try{
-    const reply=await callAPI(history);
-    if(!reply) throw new Error("Empty response received.");
-    removeTyping(); addMsg("ai",reply);
-    history.push({role:"assistant",content:reply});
-  }catch(e){
-    removeTyping(); history.pop();
-    showToast("Error: "+e.message);
-    addMsg("ai","Something went wrong: "+e.message+"\n\nPlease try again.");
-  }finally{
+    const reply = await callAPI(history);
+    removeTyping();
+    addMsg("ai", reply);
+    history.push({role:"assistant", content:reply});
+  } catch(e){
+    removeTyping();
+    history.pop(); // remove orphaned user message from history
+    const isNetworkErr = e.message === "Failed to fetch" || e.message.includes("NetworkError") || e.message.includes("network");
+    const friendlyMsg = isNetworkErr
+      ? (provider==="groq"
+          ? "Groq cannot be reached from this preview. Deploy to GitHub Pages, or switch to Anthropic."
+          : "Network error. Check your internet connection and try again.")
+      : e.message;
+    showToast(friendlyMsg, 6000);
+    addMsg("ai", "Error: " + friendlyMsg + "\n\nPlease try again.");
+  } finally{
     busy=false; sbtnEl.disabled=false; setStatus(true); tinEl.focus();
   }
 }
 
-document.querySelectorAll(".mbtn").forEach(b=>{ b.addEventListener("click",()=>setMode(b.dataset.m)); });
-sbtnEl.addEventListener("click",send);
-tinEl.addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); send(); } });
-tinEl.addEventListener("input",()=>{ tinEl.style.height="44px"; tinEl.style.height=Math.min(tinEl.scrollHeight,120)+"px"; });
+document.querySelectorAll(".mbtn").forEach(b => { b.addEventListener("click", () => setMode(b.dataset.m)); });
+sbtnEl.addEventListener("click", send);
+tinEl.addEventListener("keydown", e => { if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); send(); } });
+tinEl.addEventListener("input", () => { tinEl.style.height="44px"; tinEl.style.height=Math.min(tinEl.scrollHeight,120)+"px"; });
 
 /* ── Init ── */
 setProvider("anthropic");
+
 })();
 </script>
 </body>
