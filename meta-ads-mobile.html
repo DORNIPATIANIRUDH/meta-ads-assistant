@@ -9,43 +9,40 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{--blue:#0866FF;--blue-dark:#0553cc;--bg:#f0f2f5;--surface:#fff;--border:#e4e6ea;--text:#050505;--text2:#65676b;--text3:#8a8d91;--ai-bubble:#e4e6ea;--green:#31a24c;--orange:#e67e00}
 html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg)}
-body{display:flex;align-items:center;justify-content:center;padding:12px;min-height:100vh;flex-direction:column;gap:10px}
+body{display:flex;align-items:center;justify-content:center;padding:12px;min-height:100vh}
 
-#env-banner{display:none;width:100%;max-width:380px;background:#fffbe6;border:1px solid #ffe066;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5c00;line-height:1.5}
-#env-banner a{color:#7a5c00;font-weight:600}
-
-/* Gate */
 #gate{width:100%;max-width:380px;background:var(--surface);border-radius:20px;border:1.5px solid #c8cacd;padding:26px 22px;box-shadow:0 4px 20px rgba(0,0,0,.1);display:flex;flex-direction:column;gap:18px}
 #gate-logo{width:44px;height:44px;border-radius:12px;background:var(--blue);display:flex;align-items:center;justify-content:center}
 #gate-logo svg{width:24px;height:24px;fill:white}
 #gate h1{font-size:18px;font-weight:600;color:var(--text)}
-#gate p{font-size:13px;color:var(--text2);line-height:1.6}
+
 #prov-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:8px}
 #prov-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.ptab{padding:10px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;transition:all .15s;display:flex;flex-direction:column;gap:3px}
+.ptab{padding:10px 12px;border-radius:12px;border:2px solid var(--border);background:var(--bg);cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;transition:all .15s;display:flex;flex-direction:column;gap:3px}
 .ptab.active{border-color:var(--blue);background:#eef3ff}
-.ptab.disabled{opacity:.5;cursor:not-allowed}
-.ptab .pname{font-size:13px;font-weight:600;color:var(--text)}
-.ptab .psub{font-size:11px;color:var(--text3)}
-.ptab .pbadge{font-size:10px;padding:2px 6px;border-radius:8px;width:fit-content;margin-top:2px;font-weight:500}
-.ptab.p-anthropic.active .pname{color:#d97757}
+.pname{font-size:13px;font-weight:600;color:var(--text)}
+.psub{font-size:11px;color:var(--text3)}
+.pbadge{font-size:10px;padding:2px 6px;border-radius:8px;width:fit-content;margin-top:2px;font-weight:500}
+.badge-q{background:#fff3e0;color:#b94f00}
+.badge-free{background:#e6f4ea;color:#1a7a2e}
+.badge-locked{background:#fff0f0;color:#c00}
+.ptab.p-anthropic.active .pname{color:#c96030}
 .ptab.p-groq.active .pname{color:#f55036}
-.badge-quality{background:#fff3e0;color:#e65100}
-.badge-free{background:#e6f4ea;color:#1e7e34}
-.badge-preview{background:#fff0f0;color:#c00;font-size:10px;padding:2px 6px;border-radius:8px;width:fit-content;margin-top:2px;font-weight:500}
-#model-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
-#model-sel{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8d91' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+
+#groq-warn{display:none;padding:10px 12px;background:#fffbe6;border:1px solid #ffe066;border-radius:10px;font-size:12px;color:#7a5c00;line-height:1.5}
+#groq-warn strong{font-weight:600}
+
+#model-label,#key-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
+#model-sel{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8d91' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
 #model-sel:focus{border-color:var(--blue)}
-#key-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
 #apikey{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s;margin-bottom:8px}
 #apikey:focus{border-color:var(--blue);background:#fff}
-#gate-err{font-size:12px;color:#c00;display:none;padding:8px 12px;background:#fff0f0;border-radius:8px;border:1px solid #ffd0d0;margin-bottom:8px;line-height:1.4}
+#gate-err{display:none;padding:8px 12px;background:#fff0f0;border:1px solid #ffd0d0;border-radius:8px;font-size:12px;color:#c00;line-height:1.4;margin-bottom:8px}
 #gate-btn{width:100%;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;min-height:48px;transition:background .15s}
 #gate-btn:active{background:var(--blue-dark)}
 #gate-note{font-size:11px;color:var(--text3);line-height:1.55;padding:10px 12px;background:var(--bg);border-radius:8px}
 #gate-note a{color:var(--blue);text-decoration:none}
 
-/* Phone Shell */
 #shell{display:none;background:var(--surface);border-radius:36px;border:1.5px solid #c8cacd;overflow:hidden;width:100%;max-width:390px;height:760px;max-height:94vh;flex-direction:column;box-shadow:0 4px 24px rgba(0,0,0,.12);position:relative}
 #sbar{background:var(--blue);padding:10px 20px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 #sbar-time{font-size:13px;font-weight:600;color:#fff}
@@ -72,14 +69,22 @@ body{display:flex;align-items:center;justify-content:center;padding:12px;min-hei
 .rav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
 .row.ai .rav{background:var(--blue);color:#fff}
 .row.me .rav{background:#e4e6ea;color:var(--text2)}
-.bcol{display:flex;flex-direction:column;max-width:78%}
+.bcol{display:flex;flex-direction:column;max-width:80%}
 .row.me .bcol{align-items:flex-end}
 .bbl{padding:9px 13px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
-.row.ai .bbl{background:var(--ai-bubble);color:var(--text);border-radius:4px 18px 18px 18px}
-.row.me .bbl{background:var(--blue);color:#fff;border-radius:18px 4px 18px 18px}
+.row.ai .bbl{background:var(--ai-bubble);color:var(--text);border-radius:4px 16px 16px 16px}
+.row.me .bbl{background:var(--blue);color:#fff;border-radius:16px 4px 16px 16px}
 .bts{font-size:10px;color:var(--text3);margin-top:3px;padding:0 4px}
 .row.me .bts{text-align:right}
-.dots{display:flex;gap:4px;padding:10px 13px;background:var(--ai-bubble);border-radius:4px 18px 18px 18px;align-items:center}
+
+.err-card{background:#fff0f0;border:1px solid #ffd0d0;border-radius:12px;padding:12px 14px;max-width:82%;display:flex;flex-direction:column;gap:10px}
+.err-msg{font-size:13px;color:#900;line-height:1.5}
+.err-actions{display:flex;gap:6px;flex-wrap:wrap}
+.err-btn{font-size:12px;padding:6px 12px;border-radius:16px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;min-height:32px;touch-action:manipulation}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-secondary{background:var(--border);color:var(--text2)}
+
+.dots{display:flex;gap:4px;padding:10px 13px;background:var(--ai-bubble);border-radius:4px 16px 16px 16px;align-items:center}
 .d{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:bob 1.1s infinite ease-in-out}
 .d:nth-child(2){animation-delay:.18s}.d:nth-child(3){animation-delay:.36s}
 @keyframes bob{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
@@ -92,29 +97,27 @@ body{display:flex;align-items:center;justify-content:center;padding:12px;min-hei
 #sbtn:active{background:var(--blue-dark)}
 #sbtn:disabled{opacity:.35;cursor:not-allowed}
 #sbtn svg{width:18px;height:18px;fill:white;pointer-events:none;transform:translateX(1px)}
-#toast{display:none;position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:#1c1e21;color:#fff;padding:8px 18px;border-radius:20px;font-size:12px;font-family:'DM Sans',sans-serif;z-index:100;max-width:300px;text-align:center;line-height:1.4}
 </style>
 </head>
 <body>
 
-<div id="env-banner"></div>
 <div id="gate">
   <div id="gate-logo"><svg viewBox="0 0 24 24"><path d="M3.5 18.5l4-8 4 6 2.5-3.5 4.5 5.5H3.5zM21 6.5A2.5 2.5 0 1116 6.5 2.5 2.5 0 0121 6.5z"/></svg></div>
   <h1>Meta Ads AI Assistant</h1>
-  <p>Choose your AI provider and enter your API key.</p>
   <div>
-    <div id="prov-label">AI provider</div>
+    <div id="prov-label">Choose AI provider</div>
     <div id="prov-tabs">
       <button class="ptab p-anthropic active" data-p="anthropic">
         <span class="pname">Anthropic</span><span class="psub">Claude models</span>
-        <span class="pbadge badge-quality">Best quality</span>
+        <span class="pbadge badge-q">Best quality</span>
       </button>
       <button class="ptab p-groq" data-p="groq">
         <span class="pname">Groq</span><span class="psub">Llama · Gemma</span>
-        <span class="pbadge badge-free">Free tier</span>
+        <span class="pbadge badge-free" id="groq-badge">Free tier</span>
       </button>
     </div>
   </div>
+  <div id="groq-warn"><strong>Groq requires GitHub Pages.</strong> It is blocked in preview. Use Anthropic to test now, deploy to GitHub Pages for Groq.</div>
   <div><div id="model-label">Model</div><select id="model-sel"></select></div>
   <div>
     <div id="key-label">API key</div>
@@ -153,54 +156,55 @@ body{display:flex;align-items:center;justify-content:center;padding:12px;min-hei
       <button id="sbtn" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
     </div>
   </div>
-  <div id="toast"></div>
 </div>
 
 <script>
 (function(){
-const isIframe=(function(){try{return window.self!==window.top;}catch(e){return true;}})();
+function detectPreview(){
+  try{if(window.self!==window.top)return true;}catch(e){return true;}
+  const h=window.location.href;
+  if(!h||h==='about:blank')return true;
+  if(h.startsWith('blob:'))return true;
+  if(h.includes('claude.ai')||h.includes('anthropic.com'))return true;
+  return false;
+}
+const isPreview=detectPreview();
 
 function clockTime(){const d=new Date(),h=d.getHours(),m=d.getMinutes();return(h%12||12)+":"+(m<10?"0"+m:m)+(h<12?" AM":" PM");}
 document.getElementById("sbar-time").textContent=clockTime();
 setInterval(()=>{document.getElementById("sbar-time").textContent=clockTime();},30000);
 
 const PROVIDERS={
-  anthropic:{name:"Anthropic",placeholder:"sk-ant-api03-...",validate:k=>k.startsWith("sk-ant-"),errMsg:"Key must start with sk-ant-",note:'Free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys. Works in preview and GitHub Pages.',models:[{id:"claude-sonnet-4-6",label:"Claude Sonnet 4.6 — best"},{id:"claude-haiku-4-5-20251001",label:"Claude Haiku 4.5 — fast"},{id:"claude-opus-4-6",label:"Claude Opus 4.6 — powerful"}]},
-  groq:{name:"Groq",placeholder:"gsk_...",validate:k=>k.startsWith("gsk_"),errMsg:"Groq keys start with gsk_",note:'Free key at <a href="https://console.groq.com" target="_blank">console.groq.com</a>. <strong>Groq requires GitHub Pages — not available in preview.</strong>',models:[{id:"llama-3.3-70b-versatile",label:"Llama 3.3 70B (free)"},{id:"llama-3.1-8b-instant",label:"Llama 3.1 8B — fastest (free)"},{id:"gemma2-9b-it",label:"Gemma 2 9B (free)"}]}
+  anthropic:{name:"Anthropic",placeholder:"sk-ant-api03-...",validate:k=>k.startsWith("sk-ant-"),errMsg:"Key must start with sk-ant-",note:'Get key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys. Works in preview and GitHub Pages.',models:[{id:"claude-sonnet-4-6",label:"Claude Sonnet 4.6 — best"},{id:"claude-haiku-4-5-20251001",label:"Claude Haiku 4.5 — fast"},{id:"claude-opus-4-6",label:"Claude Opus 4.6 — powerful"}]},
+  groq:{name:"Groq",placeholder:"gsk_...",validate:k=>k.startsWith("gsk_"),errMsg:"Groq keys start with gsk_",note:'Free key at <a href="https://console.groq.com" target="_blank">console.groq.com</a>. Only works on GitHub Pages, not in preview.',models:[{id:"llama-3.3-70b-versatile",label:"Llama 3.3 70B (free)"},{id:"llama-3.1-8b-instant",label:"Llama 3.1 8B — fastest (free)"},{id:"gemma2-9b-it",label:"Gemma 2 9B (free)"}]}
 };
 
 const MODES={
-  consultant:{hint:"Strategy — product, target customer and goal (leads / sales / both)",welcome:"Hi! I am your Meta Ads Strategy Consultant.\n\nTell me about your business — what you sell, who your customers are, and whether you want leads, direct sales, or both. I will build you a complete strategy tailored to your exact goal.",system:`You are an expert Meta (Facebook/Instagram) Ads strategist. Build strategies covering BOTH lead generation AND direct sales outcomes.\n\nLead Generation:\n- Lead Ads setup (instant forms, Messenger, WhatsApp)\n- High-intent audience targeting (interests, behaviours, lookalikes)\n- CPL benchmarks and how to reduce them\n- Lead nurturing to convert leads into buyers\n\nDirect Sales:\n- Conversions/Purchase campaign setup\n- Dynamic product ads and catalogue sales for ecommerce\n- Retargeting: warm audiences, cart abandoners, past buyers\n- ROAS targets (2-4x ecom), CPA benchmarks\n\nBoth:\n- Full-funnel: awareness (CPM) > consideration (CTR) > conversion (ROAS/CPL)\n- Budget split between lead-gen and sales campaigns\n- Key metrics: CPL, CPA, ROAS, conversion rate, purchase value\n\nSpecific and practical. Plain text with short section headers. No markdown. Under 320 words.`},
-  copy:{hint:"Copy — product, audience and goal: leads, sales, or both",welcome:"Ad Copy Generator ready!\n\nTell me your product, target audience, and goal — leads, direct sales, or both. I will write 3 high-converting variations with different angles.",system:`You are an expert Meta Ads copywriter for both lead generation and direct sales. Generate 3 variations:\n- Lead-gen: reduce friction, offer value, soft CTA (Get Free Quote, Book a Call)\n- Sales: overcome objections, create urgency, hard CTA (Shop Now, Claim Offer, Buy Today)\n- Mixed: qualify then push to purchase\n\nFor each include:\n- Angle (Pain-point / Urgency / Social Proof / Transformation)\n- Hook: under 15 words, stops the scroll\n- Primary Text: 2-3 sentences — desire + objection + benefit\n- Headline: under 40 chars, benefit focused\n- CTA: specific to goal\n- Placement: Feed / Story / Reel / Carousel\n\nMobile-first. Conversational. No generic filler. Plain text only.`},
-  analyzer:{hint:"Analyzer — paste your campaign metrics for a full leads and sales audit",welcome:"Campaign Analyzer ready!\n\nPaste your metrics — CTR, CPC, CPM, ROAS, CPL, CPA, conversion rate, spend, etc. I will audit both lead generation and sales performance with benchmarks and prioritized fixes.",system:`You are a Meta Ads performance analyst. Audit for BOTH leads AND sales.\n\nPerformance Snapshot: what is working and why.\n\nBenchmarks:\n- CTR: good 1-3%, poor <0.5%\n- CPC: good $0.50-2.00, poor >$3.00\n- CPM: good $5-15, high $20+\n- Lead form CVR: good 10-15%, poor <5%\n- Website CVR: good 1-3%, poor <0.5%\n- ROAS: good 3-5x, poor <2x\n\nLead vs Sales Gap: diagnose too few leads / poor quality / leads not converting. Identify funnel drop-off.\n\nTop 5 Fixes (by impact): action, metric fixed, estimated improvement.\n\nRetargeting Play: one tactic to convert warm leads into paying customers.\n\nDirect and data-driven. Plain text, short headers. No markdown.`}
+  consultant:{hint:"Strategy — product, target customer and goal (leads / sales / both)",welcome:"Hi! I am your Meta Ads Strategy Consultant.\n\nTell me about your business — what you sell, who your customers are, and whether you want leads, direct sales, or both. I will build you a complete strategy tailored to your exact goal.",system:`You are an expert Meta Ads strategist. Cover BOTH lead generation AND direct sales:\n\nLead Generation: Lead Ads setup, audience targeting, CPL benchmarks, lead nurturing.\nDirect Sales: Purchase campaigns, dynamic product ads, retargeting, ROAS 2-4x, CPA benchmarks.\nBoth: Full-funnel (awareness > consideration > conversion), budget split, key metrics (CPL, CPA, ROAS, CVR).\n\nSpecific, practical. Plain text, short headers. No markdown. Under 320 words.`},
+  copy:{hint:"Copy — product, audience and goal: leads, sales, or both",welcome:"Ad Copy Generator ready!\n\nTell me your product, audience, and goal — leads, direct sales, or both. I will write 3 high-converting variations.",system:`You are an expert Meta Ads copywriter. Generate 3 variations:\n- Lead-gen: soft CTA (Get Free Quote, Book a Call)\n- Sales: hard CTA (Shop Now, Claim Offer, Buy Today)\n- Mixed: qualify then push to purchase\n\nEach: Angle, Hook (under 15 words), Primary Text (2-3 sentences), Headline (under 40 chars), CTA, Placement.\nMobile-first. No filler. Plain text only.`},
+  analyzer:{hint:"Analyzer — paste your campaign metrics for a full leads and sales audit",welcome:"Campaign Analyzer ready!\n\nPaste your metrics — CTR, CPC, CPM, ROAS, CPL, CPA, conversion rate, spend, etc. I will audit performance and give prioritized fixes.",system:`You are a Meta Ads analyst. Audit for BOTH leads AND sales:\n\nPerformance Snapshot: what is working.\nBenchmarks: CTR good 1-3%, CPC good $0.50-2, CPM good $5-15, Lead CVR good 10-15%, Website CVR good 1-3%, ROAS good 3-5x.\nLead vs Sales Gap: diagnose drop-off point.\nTop 5 Fixes (by impact): action, metric, improvement.\nRetargeting Play: one tactic to convert leads into buyers.\n\nDirect, data-driven. Plain text, short headers. No markdown.`}
 };
 
 let mode="consultant",history=[],busy=false,apiKey="",provider="anthropic",model="";
-const bannerEl=document.getElementById("env-banner"),gateEl=document.getElementById("gate"),shellEl=document.getElementById("shell");
+const gateEl=document.getElementById("gate"),shellEl=document.getElementById("shell");
 const apikeyEl=document.getElementById("apikey"),gateBtnEl=document.getElementById("gate-btn"),gateErrEl=document.getElementById("gate-err"),gateNoteEl=document.getElementById("gate-note");
-const modelSelEl=document.getElementById("model-sel"),keyLabelEl=document.getElementById("key-label");
+const modelSelEl=document.getElementById("model-sel"),keyLabelEl=document.getElementById("key-label"),groqWarnEl=document.getElementById("groq-warn"),groqBadgeEl=document.getElementById("groq-badge");
 const msgsEl=document.getElementById("msgs"),tinEl=document.getElementById("tin"),sbtnEl=document.getElementById("sbtn");
 const hintEl=document.getElementById("hint"),sdotEl=document.getElementById("sdot"),stxtEl=document.getElementById("stxt");
-const toastEl=document.getElementById("toast"),keyChipEl=document.getElementById("key-chip"),pillEl=document.getElementById("prov-pill");
+const keyChipEl=document.getElementById("key-chip"),pillEl=document.getElementById("prov-pill");
 
-if(isIframe){bannerEl.style.display="block";bannerEl.innerHTML='<strong>Preview mode:</strong> Only Anthropic works here. Groq requires <strong>GitHub Pages</strong>. <a href="https://console.anthropic.com" target="_blank">Get Anthropic key →</a>';}
+if(isPreview&&groqBadgeEl){groqBadgeEl.textContent="GitHub Pages only";groqBadgeEl.className="pbadge badge-locked";}
 
 function setProvider(p){
   provider=p;
-  if(isIframe&&p==="groq"){
-    gateErrEl.textContent="Groq is not available in preview. Use Anthropic here, or deploy to GitHub Pages for Groq.";
-    gateErrEl.style.display="block";
-    setProvider("anthropic");return;
-  }
   document.querySelectorAll(".ptab").forEach(t=>t.classList.remove("active"));
-  document.querySelector('.ptab[data-p="'+p+'"]').classList.add("on");
   document.querySelector('.ptab[data-p="'+p+'"]').classList.add("active");
-  if(isIframe){const g=document.querySelector(".ptab.p-groq");if(g){g.classList.add("disabled");if(!g.querySelector(".badge-preview")){const b=document.createElement("span");b.className="badge-preview";b.textContent="GitHub Pages only";g.appendChild(b);}}}
+  groqWarnEl.style.display=(p==="groq")?"block":"none";
+  gateErrEl.style.display="none";
   const cfg=PROVIDERS[p];
   apikeyEl.placeholder=cfg.placeholder;
   keyLabelEl.textContent=p==="anthropic"?"Anthropic API key":"Groq API key";
   gateNoteEl.innerHTML=cfg.note;
-  gateErrEl.style.display="none";
   modelSelEl.innerHTML="";
   cfg.models.forEach(m=>{const o=document.createElement("option");o.value=m.id;o.textContent=m.label;modelSelEl.appendChild(o);});
   model=cfg.models[0].id;
@@ -208,22 +212,21 @@ function setProvider(p){
 document.querySelectorAll(".ptab").forEach(t=>{t.addEventListener("click",()=>setProvider(t.dataset.p));});
 modelSelEl.addEventListener("change",()=>{model=modelSelEl.value;});
 
+function resetToGate(){apiKey="";history=[];shellEl.style.display="none";gateEl.style.display="flex";apikeyEl.value="";}
+function switchToAnthropic(){resetToGate();setProvider("anthropic");apikeyEl.focus();}
+
 function launch(){
   const k=apikeyEl.value.trim(),cfg=PROVIDERS[provider];
   if(!cfg.validate(k)){gateErrEl.textContent=cfg.errMsg;gateErrEl.style.display="block";return;}
-  apiKey=k;model=modelSelEl.value;
-  gateErrEl.style.display="none";bannerEl.style.display="none";
+  apiKey=k;model=modelSelEl.value;gateErrEl.style.display="none";
   gateEl.style.display="none";shellEl.style.display="flex";
   pillEl.textContent=PROVIDERS[provider].name;
   setMode("consultant");
 }
-function resetKey(){apiKey="";history=[];shellEl.style.display="none";gateEl.style.display="flex";if(isIframe)bannerEl.style.display="block";apikeyEl.value="";}
 gateBtnEl.addEventListener("click",launch);
 apikeyEl.addEventListener("keydown",e=>{if(e.key==="Enter")launch();});
-keyChipEl.addEventListener("click",resetKey);
+keyChipEl.addEventListener("click",resetToGate);
 
-let tt;
-function showToast(m,d=5000){clearTimeout(tt);toastEl.textContent=m;toastEl.style.display="block";tt=setTimeout(()=>{toastEl.style.display="none";},d);}
 function nowStr(){return new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"});}
 function setStatus(online){sdotEl.className=online?"":"busy";stxtEl.textContent=online?"Online":"Typing...";}
 
@@ -237,6 +240,24 @@ function addMsg(role,text){
   if(role==="ai"){row.appendChild(av);row.appendChild(col);}else{row.appendChild(col);row.appendChild(av);}
   msgsEl.appendChild(row);msgsEl.scrollTop=msgsEl.scrollHeight;
 }
+
+function addErrCard(msg,isGroqFail){
+  const row=document.createElement("div");row.className="row ai";
+  const av=document.createElement("div");av.className="rav";av.textContent="AI";
+  const card=document.createElement("div");card.className="err-card";
+  const txt=document.createElement("div");txt.className="err-msg";txt.textContent=msg;
+  const acts=document.createElement("div");acts.className="err-actions";
+  const retry=document.createElement("button");retry.className="err-btn btn-secondary";retry.textContent="Try again";retry.onclick=()=>{card.closest(".row").remove();tinEl.focus();};
+  acts.appendChild(retry);
+  if(isGroqFail){
+    const sw=document.createElement("button");sw.className="err-btn btn-primary";sw.textContent="Switch to Anthropic";sw.onclick=switchToAnthropic;acts.appendChild(sw);
+    const gh=document.createElement("button");gh.className="err-btn btn-secondary";gh.textContent="GitHub Pages →";gh.onclick=()=>window.open("https://pages.github.com","_blank");acts.appendChild(gh);
+  }
+  card.appendChild(txt);card.appendChild(acts);
+  row.appendChild(av);row.appendChild(card);
+  msgsEl.appendChild(row);msgsEl.scrollTop=msgsEl.scrollHeight;
+}
+
 function addTyping(){
   const row=document.createElement("div");row.className="row ai";row.id="trow";
   const av=document.createElement("div");av.className="rav";av.textContent="AI";
@@ -254,18 +275,14 @@ function setMode(m){
 async function callAPI(msgs){
   if(provider==="anthropic"){
     const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model,max_tokens:1024,system:MODES[mode].system,messages:msgs})});
-    if(!res.ok){const e=await res.json().catch(()=>({}));const m=e?.error?.message||"HTTP "+res.status;if(res.status===401)throw new Error("Invalid Anthropic key. Check console.anthropic.com");if(res.status===429)throw new Error("Rate limit hit. Wait a moment and try again.");throw new Error(m);}
-    const data=await res.json();
-    const reply=data?.content?.find(b=>b.type==="text")?.text;
-    if(!reply)throw new Error("Empty response from Anthropic.");
-    return reply;
+    if(!res.ok){const e=await res.json().catch(()=>({}));if(res.status===401)throw new Error("Invalid Anthropic key. Get one at console.anthropic.com");if(res.status===429)throw new Error("Rate limit hit. Wait and try again.");throw new Error(e?.error?.message||"Anthropic error "+res.status);}
+    const data=await res.json();const reply=data?.content?.find(b=>b.type==="text")?.text;
+    if(!reply)throw new Error("Empty response from Anthropic.");return reply;
   }else{
     const res=await fetch("https://api.groq.com/openai/v1/chat/completions",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+apiKey},body:JSON.stringify({model,max_tokens:1024,stream:false,messages:[{role:"system",content:MODES[mode].system},...msgs]})});
-    if(!res.ok){const e=await res.json().catch(()=>({}));const m=e?.error?.message||"HTTP "+res.status;if(res.status===401)throw new Error("Invalid Groq key. Check console.groq.com");if(res.status===404)throw new Error("Model not found. Select a different model.");if(res.status===429)throw new Error("Rate limit hit. Wait a moment.");throw new Error(m);}
-    const data=await res.json();
-    const reply=data?.choices?.[0]?.message?.content;
-    if(!reply)throw new Error("Empty response from Groq.");
-    return reply;
+    if(!res.ok){const e=await res.json().catch(()=>({}));if(res.status===401)throw new Error("Invalid Groq key. Get one at console.groq.com");if(res.status===404)throw new Error("Model not found. Try a different model.");if(res.status===429)throw new Error("Groq rate limit. Wait and try again.");throw new Error(e?.error?.message||"Groq error "+res.status);}
+    const data=await res.json();const reply=data?.choices?.[0]?.message?.content;
+    if(!reply)throw new Error("Empty response from Groq.");return reply;
   }
 }
 
@@ -279,10 +296,10 @@ async function send(){
     removeTyping();addMsg("ai",reply);history.push({role:"assistant",content:reply});
   }catch(e){
     removeTyping();history.pop();
-    const net=e.message==="Failed to fetch"||e.message.includes("NetworkError");
-    const msg=net?(provider==="groq"?"Groq requires GitHub Pages hosting. Switch to Anthropic in preview.":"Network error. Check your connection."):(e.message);
-    showToast(msg,6000);
-    addMsg("ai","Error: "+msg);
+    const net=!e.message||e.message==="Failed to fetch"||e.message.includes("NetworkError");
+    const isGroqFail=provider==="groq"&&net;
+    const msg=isGroqFail?"Groq is blocked in this preview environment. It only works on GitHub Pages. Tap below to switch to Anthropic (works here), or deploy to GitHub Pages first.":(net?"Network error. Check your connection.":e.message);
+    addErrCard(msg,isGroqFail);
   }finally{busy=false;sbtnEl.disabled=false;setStatus(true);}
 }
 
