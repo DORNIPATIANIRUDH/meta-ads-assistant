@@ -12,46 +12,46 @@
   --bg:#f0f2f5;--surface:#fff;--border:#e4e6ea;
   --text:#050505;--text2:#65676b;--text3:#8a8d91;
   --ai-bubble:#e4e6ea;--green:#31a24c;--orange:#e67e00;
+  --warn-bg:#fffbe6;--warn-border:#ffe066;--warn-text:#7a5c00;
+  --err-bg:#fff0f0;--err-border:#ffd0d0;--err-text:#c00;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
-
-/* ── Banner ── */
-#env-banner{display:none;width:100%;max-width:460px;background:#fffbe6;border:1px solid #ffe066;border-radius:10px;padding:11px 16px;font-size:13px;color:#7a5c00;line-height:1.5;margin-bottom:14px}
-#env-banner strong{font-weight:600}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;flex-direction:column;gap:12px}
 
 /* ── Gate ── */
-#gate{width:100%;max-width:460px;background:var(--surface);border-radius:16px;border:1px solid var(--border);padding:36px 32px;box-shadow:0 2px 12px rgba(0,0,0,.08);display:flex;flex-direction:column;gap:22px}
+#gate{width:100%;max-width:480px;background:var(--surface);border-radius:16px;border:1px solid var(--border);padding:36px 32px;box-shadow:0 2px 16px rgba(0,0,0,.09);display:flex;flex-direction:column;gap:22px}
 #gate-logo{width:48px;height:48px;border-radius:12px;background:var(--blue);display:flex;align-items:center;justify-content:center}
 #gate-logo svg{width:26px;height:26px;fill:white}
 #gate h1{font-size:20px;font-weight:600;color:var(--text)}
-#gate-desc{font-size:14px;color:var(--text2);line-height:1.6}
 
+/* Provider tabs */
 #prov-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:8px}
 #prov-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.ptab{padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;transition:all .15s;display:flex;flex-direction:column;gap:4px;position:relative}
-.ptab:hover:not(.disabled){border-color:#aaa;background:#fff}
+.ptab{padding:12px 14px;border-radius:12px;border:2px solid var(--border);background:var(--bg);cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;transition:all .15s;display:flex;flex-direction:column;gap:4px}
+.ptab:hover{border-color:#bbb;background:#fff}
 .ptab.active{border-color:var(--blue);background:#eef3ff}
-.ptab.disabled{opacity:.5;cursor:not-allowed}
-.ptab .pname{font-size:14px;font-weight:600;color:var(--text)}
-.ptab .psub{font-size:11px;color:var(--text3)}
-.ptab .pbadge{font-size:10px;padding:2px 7px;border-radius:10px;width:fit-content;margin-top:2px;font-weight:500}
-.ptab.p-anthropic.active .pname{color:#d97757}
+.pname{font-size:14px;font-weight:600;color:var(--text)}
+.psub{font-size:11px;color:var(--text3)}
+.pbadge{font-size:10px;padding:2px 7px;border-radius:20px;width:fit-content;margin-top:3px;font-weight:500}
+.badge-q{background:#fff3e0;color:#b94f00}
+.badge-free{background:#e6f4ea;color:#1a7a2e}
+.badge-locked{background:#fff0f0;color:#c00}
+.ptab.p-anthropic.active .pname{color:#c96030}
 .ptab.p-groq.active .pname{color:#f55036}
-.badge-quality{background:#fff3e0;color:#e65100}
-.badge-free{background:#e6f4ea;color:#1e7e34}
-.badge-preview{background:#fff0f0;color:#c00;font-size:10px;padding:2px 7px;border-radius:10px;width:fit-content;margin-top:2px;font-weight:500}
 
-#model-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
-#model-sel{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8d91' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;transition:border-color .15s}
-#model-sel:focus{border-color:var(--blue);background-color:#fff}
+/* Groq warning (shown when Groq tab selected) */
+#groq-warn{display:none;padding:10px 14px;background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:10px;font-size:13px;color:var(--warn-text);line-height:1.5}
+#groq-warn strong{font-weight:600}
 
-#key-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
+/* Model + key */
+#model-label,#key-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
+#model-sel{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8d91' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;transition:border-color .15s}
+#model-sel:focus{border-color:var(--blue);background:#fff}
 #key-row{display:flex;gap:8px}
 #apikey{flex:1;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
 #apikey:focus{border-color:var(--blue);background:#fff}
 #gate-btn{padding:10px 22px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s}
 #gate-btn:hover{background:var(--blue-dark)}
-#gate-err{font-size:13px;color:#c00;display:none;padding:8px 12px;background:#fff0f0;border-radius:8px;border:1px solid #ffd0d0}
+#gate-err{display:none;padding:10px 14px;background:var(--err-bg);border:1px solid var(--err-border);border-radius:10px;font-size:13px;color:var(--err-text);line-height:1.5;margin-top:4px}
 #gate-note{font-size:12px;color:var(--text3);line-height:1.55;padding:12px 14px;background:var(--bg);border-radius:8px}
 #gate-note a{color:var(--blue);text-decoration:none}
 #gate-note a:hover{text-decoration:underline}
@@ -85,6 +85,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;disp
 .bbl{padding:10px 14px;font-size:14px;line-height:1.6;max-width:78%;white-space:pre-wrap;word-break:break-word}
 .row.ai .bbl{background:var(--ai-bubble);color:var(--text);border-radius:4px 18px 18px 18px}
 .row.me .bbl{background:var(--blue);color:#fff;border-radius:18px 4px 18px 18px}
+.err-card{background:var(--err-bg);border:1px solid var(--err-border);border-radius:12px;padding:14px 16px;max-width:82%;display:flex;flex-direction:column;gap:10px}
+.err-msg{font-size:13px;color:#900;line-height:1.55}
+.err-actions{display:flex;gap:8px;flex-wrap:wrap}
+.err-btn{font-size:12px;padding:6px 14px;border-radius:20px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:opacity .15s}
+.err-btn:hover{opacity:.85}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-secondary{background:var(--border);color:var(--text2)}
+
 .dots{display:flex;gap:5px;padding:12px 16px;background:var(--ai-bubble);border-radius:4px 18px 18px 18px;align-items:center}
 .d{width:7px;height:7px;border-radius:50%;background:var(--text3);animation:bob 1.1s infinite ease-in-out}
 .d:nth-child(2){animation-delay:.18s}.d:nth-child(3){animation-delay:.36s}
@@ -99,33 +107,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;disp
 #sbtn:hover{background:var(--blue-dark)}
 #sbtn:disabled{opacity:.35;cursor:not-allowed}
 #sbtn svg{width:17px;height:17px;fill:white;pointer-events:none;transform:translateX(1px)}
-
-#toast{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1c1e21;color:#fff;padding:10px 20px;border-radius:22px;font-size:13px;font-family:'DM Sans',sans-serif;z-index:100;max-width:500px;text-align:center;line-height:1.4}
 </style>
 </head>
 <body>
 
-<div id="env-banner"></div>
-
 <div id="gate">
   <div id="gate-logo"><svg viewBox="0 0 24 24"><path d="M3.5 18.5l4-8 4 6 2.5-3.5 4.5 5.5H3.5zM21 6.5A2.5 2.5 0 1116 6.5 2.5 2.5 0 0121 6.5z"/></svg></div>
   <h1>Meta Ads AI Assistant</h1>
-  <p id="gate-desc">Choose your AI provider, select a model, and enter your API key.</p>
 
   <div>
-    <div id="prov-label">AI provider</div>
+    <div id="prov-label">Choose AI provider</div>
     <div id="prov-tabs">
       <button class="ptab p-anthropic active" data-p="anthropic">
         <span class="pname">Anthropic</span>
         <span class="psub">Claude models</span>
-        <span class="pbadge badge-quality">Best quality</span>
+        <span class="pbadge badge-q">Best quality</span>
       </button>
       <button class="ptab p-groq" data-p="groq">
         <span class="pname">Groq</span>
         <span class="psub">Llama · Gemma</span>
-        <span class="pbadge badge-free">Free tier</span>
+        <span class="pbadge badge-free" id="groq-badge">Free tier</span>
       </button>
     </div>
+  </div>
+
+  <div id="groq-warn">
+    <strong>Groq requires GitHub Pages.</strong> It does not work in Claude's preview due to browser restrictions. Deploy your files first, then use Groq. <strong>Use Anthropic to test right now.</strong>
   </div>
 
   <div>
@@ -139,7 +146,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;disp
       <input id="apikey" type="password" placeholder="" autocomplete="off" spellcheck="false"/>
       <button id="gate-btn">Launch</button>
     </div>
-    <div id="gate-err" style="margin-top:8px"></div>
+    <div id="gate-err"></div>
   </div>
 
   <div id="gate-note"></div>
@@ -172,36 +179,41 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;disp
     </div>
   </div>
 </div>
-<div id="toast"></div>
 
 <script>
 (function(){
 
-/* ── Environment detection ── */
-const isIframe = (function(){
-  try { return window.self !== window.top; } catch(e){ return true; }
-})();
+/* ── Robust environment detection ── */
+function detectPreview(){
+  try { if(window.self !== window.top) return true; } catch(e){ return true; }
+  const href = window.location.href;
+  if(!href || href === 'about:blank') return true;
+  if(href.startsWith('blob:'))        return true;
+  if(href.includes('claude.ai'))      return true;
+  if(href.includes('anthropic.com'))  return true;
+  if(href === window.location.origin + '/') return false;
+  return false;
+}
+const isPreview = detectPreview();
 
-/* ── Provider config — FIXED model IDs ── */
+/* ── Provider config ── */
 const PROVIDERS = {
   anthropic:{
-    name:"Anthropic",
-    placeholder:"sk-ant-api03-...",
+    name:"Anthropic", placeholder:"sk-ant-api03-...",
     validate: k => k.startsWith("sk-ant-"),
-    errMsg:"Key must start with sk-ant-  —  get one at console.anthropic.com",
-    note:'Get a free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys. Works in both preview and GitHub Pages.',
+    errMsg:"Key must start with sk-ant- — get one at console.anthropic.com",
+    note:'Get your key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys. Works in preview and on GitHub Pages.',
     models:[
-      {id:"claude-sonnet-4-6",        label:"Claude Sonnet 4.6 — best quality"},
-      {id:"claude-haiku-4-5-20251001", label:"Claude Haiku 4.5 — faster & cheaper"},
-      {id:"claude-opus-4-6",          label:"Claude Opus 4.6 — most powerful"}
+      {id:"claude-sonnet-4-6",         label:"Claude Sonnet 4.6 — best quality"},
+      {id:"claude-haiku-4-5-20251001",  label:"Claude Haiku 4.5 — faster & cheaper"},
+      {id:"claude-opus-4-6",           label:"Claude Opus 4.6 — most powerful"}
     ]
   },
   groq:{
-    name:"Groq",
-    placeholder:"gsk_...",
+    name:"Groq", placeholder:"gsk_...",
     validate: k => k.startsWith("gsk_"),
-    errMsg:"Groq keys start with gsk_  —  get one at console.groq.com",
-    note:'Free key at <a href="https://console.groq.com" target="_blank">console.groq.com</a> → API Keys. <strong>Groq only works on GitHub Pages, not in this preview.</strong>',
+    errMsg:"Groq keys start with gsk_ — get one at console.groq.com",
+    note:'Get your free key at <a href="https://console.groq.com" target="_blank">console.groq.com</a> → API Keys. Only works when deployed on GitHub Pages.',
     models:[
       {id:"llama-3.3-70b-versatile", label:"Llama 3.3 70B — best quality (free)"},
       {id:"llama-3.1-8b-instant",    label:"Llama 3.1 8B — fastest (free)"},
@@ -284,72 +296,49 @@ let mode="consultant", history=[], busy=false;
 let apiKey="", provider="anthropic", model="";
 
 /* ── Elements ── */
-const bannerEl  = document.getElementById("env-banner");
-const gateEl    = document.getElementById("gate");
-const appEl     = document.getElementById("app");
-const apikeyEl  = document.getElementById("apikey");
-const gateBtnEl = document.getElementById("gate-btn");
-const gateErrEl = document.getElementById("gate-err");
-const gateNoteEl= document.getElementById("gate-note");
-const modelSelEl= document.getElementById("model-sel");
-const keyLabelEl= document.getElementById("key-label");
-const msgsEl    = document.getElementById("msgs");
-const tinEl     = document.getElementById("tin");
-const sbtnEl    = document.getElementById("sbtn");
-const hintEl    = document.getElementById("hint");
-const sdotEl    = document.getElementById("sdot");
-const stxtEl    = document.getElementById("stxt");
-const toastEl   = document.getElementById("toast");
-const keyChipEl = document.getElementById("key-chip");
-const pillEl    = document.getElementById("prov-pill");
+const gateEl     = document.getElementById("gate");
+const appEl      = document.getElementById("app");
+const apikeyEl   = document.getElementById("apikey");
+const gateBtnEl  = document.getElementById("gate-btn");
+const gateErrEl  = document.getElementById("gate-err");
+const gateNoteEl = document.getElementById("gate-note");
+const modelSelEl = document.getElementById("model-sel");
+const keyLabelEl = document.getElementById("key-label");
+const groqWarnEl = document.getElementById("groq-warn");
+const groqBadgeEl= document.getElementById("groq-badge");
+const msgsEl     = document.getElementById("msgs");
+const tinEl      = document.getElementById("tin");
+const sbtnEl     = document.getElementById("sbtn");
+const hintEl     = document.getElementById("hint");
+const sdotEl     = document.getElementById("sdot");
+const stxtEl     = document.getElementById("stxt");
+const keyChipEl  = document.getElementById("key-chip");
+const pillEl     = document.getElementById("prov-pill");
 
-/* ── Show environment banner if in iframe ── */
-if(isIframe){
-  bannerEl.style.display="block";
-  bannerEl.innerHTML='<strong>Preview mode:</strong> Only <strong>Anthropic</strong> works here. To use Groq, deploy to GitHub Pages first. <a href="https://console.anthropic.com" target="_blank" style="color:#7a5c00;font-weight:600">Get Anthropic key →</a>';
+/* Mark Groq tab with lock in preview */
+if(isPreview && groqBadgeEl){
+  groqBadgeEl.textContent = "GitHub Pages only";
+  groqBadgeEl.className   = "pbadge badge-locked";
 }
 
 /* ── Provider switching ── */
 function setProvider(p){
   provider = p;
-  const groqTab = document.querySelector(".ptab.p-groq");
   document.querySelectorAll(".ptab").forEach(t => t.classList.remove("active"));
-
-  if(isIframe && p === "groq"){
-    // In iframe — block Groq, force back to Anthropic
-    provider = "anthropic";
-    gateErrEl.textContent = "Groq is not available in preview mode. It works on GitHub Pages. Use Anthropic here.";
-    gateErrEl.style.display = "block";
-    document.querySelector(".ptab.p-anthropic").classList.add("active");
-    setProvider("anthropic");
-    return;
-  }
-
   document.querySelector('.ptab[data-p="'+p+'"]').classList.add("active");
 
-  // Mark Groq as disabled in iframe
-  if(isIframe && groqTab){
-    groqTab.classList.add("disabled");
-    const existBadge = groqTab.querySelector(".badge-preview");
-    if(!existBadge){
-      const b=document.createElement("span");
-      b.className="badge-preview";
-      b.textContent="GitHub Pages only";
-      groqTab.appendChild(b);
-    }
-  }
+  groqWarnEl.style.display = (p === "groq") ? "block" : "none";
+  gateErrEl.style.display  = "none";
 
   const cfg = PROVIDERS[p];
-  apikeyEl.placeholder = cfg.placeholder;
-  keyLabelEl.textContent = p==="anthropic" ? "Anthropic API key" : "Groq API key";
-  gateNoteEl.innerHTML = cfg.note;
-  gateErrEl.style.display = "none";
+  apikeyEl.placeholder     = cfg.placeholder;
+  keyLabelEl.textContent   = p === "anthropic" ? "Anthropic API key" : "Groq API key";
+  gateNoteEl.innerHTML     = cfg.note;
 
   modelSelEl.innerHTML = "";
   cfg.models.forEach(m => {
     const o = document.createElement("option");
-    o.value = m.id;
-    o.textContent = m.label;
+    o.value = m.id; o.textContent = m.label;
     modelSelEl.appendChild(o);
   });
   model = cfg.models[0].id;
@@ -362,59 +351,91 @@ modelSelEl.addEventListener("change", () => { model = modelSelEl.value; });
 
 /* ── Launch ── */
 function launch(){
-  const k = apikeyEl.value.trim();
+  const k   = apikeyEl.value.trim();
   const cfg = PROVIDERS[provider];
   if(!cfg.validate(k)){
-    gateErrEl.textContent = cfg.errMsg;
+    gateErrEl.textContent   = cfg.errMsg;
     gateErrEl.style.display = "block";
     return;
   }
-  apiKey = k;
-  model  = modelSelEl.value;
+  apiKey = k; model = modelSelEl.value;
   gateErrEl.style.display = "none";
-  bannerEl.style.display = "none";
-  gateEl.style.display   = "none";
-  appEl.style.display    = "flex";
-
-  const modelLabel = modelSelEl.options[modelSelEl.selectedIndex].text.split("—")[0].trim();
-  pillEl.textContent  = PROVIDERS[provider].name + " · " + modelLabel;
-  pillEl.className    = "prov-pill pill-" + provider;
+  gateEl.style.display    = "none";
+  appEl.style.display     = "flex";
+  const label = modelSelEl.options[modelSelEl.selectedIndex].text.split("—")[0].trim();
+  pillEl.textContent = PROVIDERS[provider].name + " · " + label;
+  pillEl.className   = "prov-pill pill-" + provider;
   setMode("consultant");
   tinEl.focus();
 }
-function resetKey(){
-  apiKey=""; history=[];
+
+function resetToGate(){
+  apiKey = ""; history = [];
   appEl.style.display  = "none";
   gateEl.style.display = "flex";
-  if(isIframe) bannerEl.style.display = "block";
   apikeyEl.value = "";
+}
+
+/* Switch to Anthropic from error card */
+function switchToAnthropic(){
+  resetToGate();
+  setProvider("anthropic");
+  apikeyEl.focus();
 }
 
 gateBtnEl.addEventListener("click", launch);
 apikeyEl.addEventListener("keydown", e => { if(e.key==="Enter") launch(); });
-keyChipEl.addEventListener("click", resetKey);
+keyChipEl.addEventListener("click", resetToGate);
 
-/* ── Helpers ── */
-let tt;
-function showToast(msg, duration=5000){
-  clearTimeout(tt);
-  toastEl.textContent = msg;
-  toastEl.style.display = "block";
-  tt = setTimeout(() => { toastEl.style.display="none"; }, duration);
-}
-
+/* ── Status ── */
 function setStatus(online){
-  sdotEl.className = online ? "" : "busy";
+  sdotEl.className   = online ? "" : "busy";
   stxtEl.textContent = online ? "Online · Leads & Sales" : "Typing...";
 }
 
+/* ── Messages ── */
 function addMsg(role, text){
   const row = document.createElement("div"); row.className = "row " + role;
-  const av  = document.createElement("div"); av.className  = "av"; av.textContent = role==="ai" ? "AI" : "Me";
+  const av  = document.createElement("div"); av.className  = "av"; av.textContent = role==="ai"?"AI":"Me";
   const bbl = document.createElement("div"); bbl.className = "bbl"; bbl.textContent = text;
   row.appendChild(av); row.appendChild(bbl);
   msgsEl.appendChild(row); msgsEl.scrollTop = msgsEl.scrollHeight;
 }
+
+/* Error card with action buttons */
+function addErrCard(msg, isGroqFail){
+  const row  = document.createElement("div"); row.className = "row ai";
+  const av   = document.createElement("div"); av.className  = "av"; av.textContent = "AI";
+  const card = document.createElement("div"); card.className = "err-card";
+  const txt  = document.createElement("div"); txt.className  = "err-msg"; txt.textContent = msg;
+  const acts = document.createElement("div"); acts.className = "err-actions";
+
+  const retryBtn = document.createElement("button");
+  retryBtn.className = "err-btn btn-secondary";
+  retryBtn.textContent = "Try again";
+  retryBtn.onclick = () => { card.closest(".row").remove(); tinEl.focus(); };
+
+  acts.appendChild(retryBtn);
+
+  if(isGroqFail){
+    const switchBtn = document.createElement("button");
+    switchBtn.className   = "err-btn btn-primary";
+    switchBtn.textContent = "Switch to Anthropic";
+    switchBtn.onclick     = switchToAnthropic;
+    acts.appendChild(switchBtn);
+
+    const howBtn = document.createElement("button");
+    howBtn.className   = "err-btn btn-secondary";
+    howBtn.textContent = "How to deploy to GitHub Pages →";
+    howBtn.onclick     = () => window.open("https://pages.github.com","_blank");
+    acts.appendChild(howBtn);
+  }
+
+  card.appendChild(txt); card.appendChild(acts);
+  row.appendChild(av); row.appendChild(card);
+  msgsEl.appendChild(row); msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+
 function addTyping(){
   const row  = document.createElement("div"); row.className = "row ai"; row.id = "trow";
   const av   = document.createElement("div"); av.className  = "av"; av.textContent = "AI";
@@ -423,7 +444,7 @@ function addTyping(){
   row.appendChild(av); row.appendChild(dots);
   msgsEl.appendChild(row); msgsEl.scrollTop = msgsEl.scrollHeight;
 }
-function removeTyping(){ const el=document.getElementById("trow"); if(el) el.remove(); }
+function removeTyping(){ const el = document.getElementById("trow"); if(el) el.remove(); }
 
 function setMode(m){
   mode=m; history=[]; msgsEl.innerHTML="";
@@ -433,62 +454,40 @@ function setMode(m){
   addMsg("ai", MODES[m].welcome);
 }
 
-/* ── Unified API call (Anthropic + Groq) ── */
+/* ── Unified API call ── */
 async function callAPI(msgs){
   if(provider === "anthropic"){
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const res = await fetch("https://api.anthropic.com/v1/messages",{
       method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "x-api-key": apiKey,
-        "anthropic-version":"2023-06-01",
-        "anthropic-dangerous-direct-browser-access":"true"
-      },
-      body: JSON.stringify({
-        model, max_tokens:1024,
-        system: MODES[mode].system,
-        messages: msgs
-      })
+      headers:{"Content-Type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+      body: JSON.stringify({model, max_tokens:1024, system:MODES[mode].system, messages:msgs})
     });
     if(!res.ok){
-      const err = await res.json().catch(()=>({}));
-      const msg = err?.error?.message || ("HTTP " + res.status);
-      if(res.status===401) throw new Error("Invalid API key. Check your Anthropic key at console.anthropic.com");
+      const e = await res.json().catch(()=>({}));
+      if(res.status===401) throw new Error("Invalid Anthropic key. Get one at console.anthropic.com");
       if(res.status===429) throw new Error("Rate limit hit. Wait a moment and try again.");
-      throw new Error(msg);
+      throw new Error(e?.error?.message || "Anthropic error " + res.status);
     }
     const data  = await res.json();
     const reply = data?.content?.find(b => b.type==="text")?.text;
-    if(!reply) throw new Error("Anthropic returned an empty response.");
+    if(!reply) throw new Error("Empty response from Anthropic.");
     return reply;
-
   } else {
-    /* Groq — OpenAI-compatible, stream:false explicitly set (Bug #6 fix) */
-    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions",{
       method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "Authorization":"Bearer " + apiKey
-      },
-      body: JSON.stringify({
-        model, max_tokens:1024, stream:false,
-        messages:[
-          { role:"system", content: MODES[mode].system },
-          ...msgs
-        ]
-      })
+      headers:{"Content-Type":"application/json","Authorization":"Bearer "+apiKey},
+      body: JSON.stringify({model, max_tokens:1024, stream:false, messages:[{role:"system",content:MODES[mode].system},...msgs]})
     });
     if(!res.ok){
-      const err = await res.json().catch(()=>({}));
-      const msg = err?.error?.message || ("HTTP " + res.status);
-      if(res.status===401) throw new Error("Invalid Groq API key. Check at console.groq.com");
-      if(res.status===404) throw new Error("Model not found. Please select a different model.");
-      if(res.status===429) throw new Error("Rate limit hit. Wait a moment and try again.");
-      throw new Error(msg);
+      const e = await res.json().catch(()=>({}));
+      if(res.status===401) throw new Error("Invalid Groq key. Get one at console.groq.com");
+      if(res.status===404) throw new Error("Model not found on Groq. Try a different model.");
+      if(res.status===429) throw new Error("Groq rate limit hit. Wait a moment and try again.");
+      throw new Error(e?.error?.message || "Groq error " + res.status);
     }
     const data  = await res.json();
     const reply = data?.choices?.[0]?.message?.content;
-    if(!reply) throw new Error("Groq returned an empty response.");
+    if(!reply) throw new Error("Empty response from Groq.");
     return reply;
   }
 }
@@ -508,15 +507,13 @@ async function send(){
     history.push({role:"assistant", content:reply});
   } catch(e){
     removeTyping();
-    history.pop(); // remove orphaned user message from history
-    const isNetworkErr = e.message === "Failed to fetch" || e.message.includes("NetworkError") || e.message.includes("network");
-    const friendlyMsg = isNetworkErr
-      ? (provider==="groq"
-          ? "Groq cannot be reached from this preview. Deploy to GitHub Pages, or switch to Anthropic."
-          : "Network error. Check your internet connection and try again.")
-      : e.message;
-    showToast(friendlyMsg, 6000);
-    addMsg("ai", "Error: " + friendlyMsg + "\n\nPlease try again.");
+    history.pop();
+    const isNetErr    = !e.message || e.message === "Failed to fetch" || e.message.includes("NetworkError") || e.message.includes("network");
+    const isGroqFail  = provider === "groq" && isNetErr;
+    const friendlyMsg = isGroqFail
+      ? "Groq is blocked in this environment. It only works on GitHub Pages (real browser). You can switch to Anthropic to use the app right now, or deploy to GitHub Pages to use Groq."
+      : (isNetErr ? "Network error. Check your connection and try again." : e.message);
+    addErrCard(friendlyMsg, isGroqFail);
   } finally{
     busy=false; sbtnEl.disabled=false; setStatus(true); tinEl.focus();
   }
@@ -527,9 +524,7 @@ sbtnEl.addEventListener("click", send);
 tinEl.addEventListener("keydown", e => { if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); send(); } });
 tinEl.addEventListener("input", () => { tinEl.style.height="44px"; tinEl.style.height=Math.min(tinEl.scrollHeight,120)+"px"; });
 
-/* ── Init ── */
 setProvider("anthropic");
-
 })();
 </script>
 </body>
